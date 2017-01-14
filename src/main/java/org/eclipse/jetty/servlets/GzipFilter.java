@@ -291,7 +291,7 @@ public class GzipFilter extends UserAgentFilter
         throws IOException, ServletException
     {
     	
-    	System.out.println("gzFilter¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·");
+    	System.out.println("gzFilter¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·start");
         HttpServletRequest request=(HttpServletRequest)req;
         HttpServletResponse response=(HttpServletResponse)res;
 
@@ -368,6 +368,7 @@ public class GzipFilter extends UserAgentFilter
         }
         finally
         {
+        	System.out.println("gzFilter¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·end");
             if (request.isAsyncStarted())
             {
                 request.getAsyncContext().addListener(new FinishOnCompleteListener(wrappedResponse));

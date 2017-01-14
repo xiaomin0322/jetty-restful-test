@@ -1,4 +1,5 @@
 package zzm.zzm;
+
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -16,11 +17,37 @@ public class ResponseFilter implements Filter {
     public void destroy() {
     }
 
-    @Override
+    
+    public void doFilter2(ServletRequest request, ServletResponse response,
+            FilterChain filterChain) throws IOException, ServletException {
+    	System.out.println("response>>>>"+response);
+        //此时 ：Content-Encoding: 为 null 所以这里没问题
+    	
+        response.getWriter().println(">>>>>>>>>>>>>>>>>>");
+        
+        
+        return ;
+    }
+    
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain filterChain) throws IOException, ServletException {
+    	 System.out.println("myfilter start");
         WrapperResponse wrapperResponse = new WrapperResponse((HttpServletResponse) response);
+        
+        
+        /**
+         * 1.request > filter1 > filter2
+         * 2.dofilter
+         * 3.response > filter2 > filter1
+         * 
+         */
+        
+        
+        
         filterChain.doFilter(request, wrapperResponse);
+        
+        System.out.println("myfilter end");
+        
         byte[] content = wrapperResponse.getContent();
             System.out.println("Response Content: {}"+new String(content) +" "+content.length);
             
@@ -38,10 +65,11 @@ public class ResponseFilter implements Filter {
         
         */
         
-        
+       byte[] outbyte= MessageGZIP.compressToByte(MessageGZIP.uncompressToString(content)+"hahahhahahaha");
             
         ServletOutputStream out = response.getOutputStream();
-        out.write(content);
+        //這裡輸出要gzip編碼，應為：Content-Encoding: gzip，如果不編碼會有問題
+        out.write(outbyte);
         out.flush();
     }
 

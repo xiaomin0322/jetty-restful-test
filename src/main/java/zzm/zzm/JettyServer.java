@@ -29,9 +29,12 @@ public class JettyServer {
 		context.addServlet(sh, "/*");
 
 
+		//filter顺序 在前面的前执行
+		
 		
 		context.addFilter(new FilterHolder(new ResponseFilter()), "/*", EnumSet.allOf(DispatcherType.class));
 		
+		//放在最后面，也就 是dofilter第一个返回执行
 		context.addFilter(new FilterHolder(new org.eclipse.jetty.servlets.GzipFilter()), "/*", EnumSet.allOf(DispatcherType.class));
 		
 		

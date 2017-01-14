@@ -24,14 +24,19 @@ public class ResponseFilter implements Filter {
         byte[] content = wrapperResponse.getContent();
             System.out.println("Response Content: {}"+new String(content) +" "+content.length);
             
+            
+            System.out.println("½âÑ¹ÂÞ>>>>>>>>>>>>>>>>>"+MessageGZIP.uncompressToString(content));
+            
+            System.out.println("response>>>>"+response);
+            
         System.out.println(response.getClass().getName());   
         
-        org.eclipse.jetty.server.Response response2 = (org.eclipse.jetty.server.Response)response;
+        /*org.eclipse.jetty.server.Response response2 = (org.eclipse.jetty.server.Response)response;
         
         
         System.out.println(response2.getHttpOutput().getBufferSize());
         
-        
+        */
         
         
             

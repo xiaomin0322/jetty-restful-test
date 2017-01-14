@@ -29,7 +29,11 @@ public class JettyServer {
 		context.addServlet(sh, "/*");
 
 
+		
 		context.addFilter(new FilterHolder(new ResponseFilter()), "/*", EnumSet.allOf(DispatcherType.class));
+		
+		context.addFilter(new FilterHolder(new org.eclipse.jetty.servlets.GzipFilter()), "/*", EnumSet.allOf(DispatcherType.class));
+		
 		
 		server.start();
 	}
